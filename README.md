@@ -134,4 +134,155 @@ En la carpeta de tu proyecto
 npm init -y
 ~~~
 Esto creara tu package.json
+##### Server
+Si ya cuentas con alguna herramienta que te pueda levantar el server para ver tu HTML puedes usarla o instalar Web dev server
+~~~
+npm i --save-dev @web/dev-server
+~~~
+Hecho esto, se te va a crear una carpeta llamada node_modules y un archivo llamado package-lock.json
 
+Ahora debemos acceder a package.json y agregar la linea 
+~~~
+"start": "web-dev-server --node-resolve --open --watch"
+~~~
+Quedando de la siguiente manera (solo si no lo has modificado anteriormente)
+~~~
+{
+  "name": "lit",
+  "version": "1.0.0",
+  "description": "## ¿Qué es web components?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "web-dev-server --node-resolve --open --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@web/dev-server": "^0.4.6"
+  },
+  "dependencies": {
+    "lit": "^3.2.0"
+  }
+}
+~~~
+Hecho esto ahora ya tenemos el script para iniciar el server ya solo en terminal y ubicado en tu proyecto debemos escribir
+~~~
+npm run start
+~~~
+#### Al hacer esto nos va a abrir una ventana con un mensaje de "aviso" el cual nos indica que como tal no se encontró un index.html y debemos agregarlo. 
+
+Por lo que ahora pocedemos a crear un archivo llamado index.html y podemos añadirle algunas cosas, por ejemplo un h1 etc...
+
+### Instalando Lit
+
+Hecho lo anterior ahora si podemos proceder a instalar lit.
+
+~~~
+npm i lit
+~~~
+
+## Crear primer componente
+Nuestro primer compoenente lo vamos a crear en base al primer ejemplo visto anteriormente.
+
+Para este ejemplo se está ocupando el método render(), este método define la vista del componente y al final regresa un template string (html`<"Etiquetas">` )
+~~~
+import { LitElement, html } from 'lit';
+
+export class MyCounter extends LitElement{
+    render(){
+        return html`
+        <p>Soy tu primer <b>Web Component</b>!!</p>
+        `;
+    }
+}
+customElements.define('my-counter',MyCounter);
+~~~
+
+### Para poder usar componentes se necesita un script que va a indentificar a los componentes.
+~~~
+<script src="./components/eit-counter.js" type="module"></script>
+~~~
+
+## Contexto hasta el momento 
+
+#### Se crea el archivo eit-counter.js
+Datos relevantes...
+
+- host: se refiere a las propiedades globales del mismo componente
+- Recuerda siempre al definirlo con .define("nombre-componente",NombreComponente)
+de usar un "-" GUION, dado que las palabras sin GUION estaán reservadas para HTML
+- slot es como tal los elementos dentro de la etiqueta del componente 
+- static properties es las propiedades con las que podemos trabajar en el componente
+- El constructor es donde podemos declarar los valores de las propiedades
+~~~
+import { LitElement, html, css } from 'lit';
+
+export class EitCounter extends LitElement{
+    static styles=[
+        css`
+            :host {
+                display:inline-block;
+                padding:1em;
+                border:1px solid blue;
+            }
+            slot{
+                
+                color:red;
+            }
+            .parrafo{
+                color:blue;
+                font-size:1.5em;
+            }
+        `
+    ];
+
+    static properties={
+        counter:{ type:Number }
+    }
+    
+    constructor(){
+        super();
+        this.counter = 30 
+    }
+    
+
+    render(){
+        return html`
+            <slot></slot>
+            <p class="parrafo">${this.counter}</p>
+        `;
+    }
+}
+customElements.define('eit-counter',EitCounter);
+~~~
+#### Contenido del archivo index.html
+
+~~~
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lit </title>
+</head>
+
+<body>
+
+    <h1>Lit.dev</h1>
+
+    <eit-counter counter="10">
+        <h2>Mi contador</h2>
+    </eit-counter>
+
+    <eit-counter counter="0">
+        <h3> <a href="#"> Mi contador!!!!!</a></h2>
+    </eit-counter>
+
+    <script src="./components/eit-counter.js" type="module"></script>
+</body>
+
+</html>
+~~~
