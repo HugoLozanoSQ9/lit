@@ -82,3 +82,56 @@ customElements.define('primer-componente', Componente)
 
 
 ## ¿Qué es Lit?
+
+Es una clase (de programación orientada a objetos) base para la creación de Custom Elements.
+
+##### "Creado por el equipo de Polymer (Google)"
+
+### ¿Por qué necesito LitElement? 
+
+Realmente no se necesita...
+
+Sólo que, si creas un componente extendido de Lit estarás obteniendo varios beneficios...
+
+1. Data-binding
+2. Sistema de templates reactivo
+3. Constructable stylesheets
+4. Sincrinización entre propiedades y atributos
+5. Pesa 5kb
+
+### ¿Dónde puedo usarlo? 
+
+Es Js! por lo que lo puedes usar más allá de donde lo necesites. (en todos lados)...
+
+### Rendimiento
+
+Mantiene un rendimiento casi igual a JS Vanilla
+
+### ¿Qué se puede construir? 
+- Componentes UI
+- Design Systems 
+- App's web
+  - SPA
+  - PWA
+
+## ¿Que se necesita para comenzar a trabajar con lit? 
+
+### Instalar NodeJS (y npm)
+Para instalar Lit en un proyecto cómodamente usamos el gestor de dependencias JS (npm).
+
+npm se instala cuando instalas NodeJS. 
+
+### Herramientas de desarrollo 
+Por su puesto, podemos apoyarnos en las herramientas frontend y caonocidas.
+
+- Servidor de desarrollo
+- Transpilar código JS
+- Llevar a producción
+
+### Iniciar un proyecto con npm
+En la carpeta de tu proyecto
+~~~
+npm init -y
+~~~
+Esto creara tu package.json
+
